@@ -1,3 +1,21 @@
+// Dependencies
+const express = require('express');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+
+const app = express()
+app.use(morgan('combined'))
+app.use(bodyParser.json())
+
+app.get('/status', (req, res) => {
+  res.send({
+    messsage: 'hello world'
+  })
+})
+
+app.listen(process.env.PORT || 8080)
+
+
 // // Dependencies
 // const http = require('http');
 // const express = require('express');
