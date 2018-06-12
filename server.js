@@ -1,37 +1,105 @@
 // Dependencies
 const express = require('express');
-const bodyParser = require('body-parser');
+const app = express();
 const morgan = require('morgan');
+// const log4js = require('log4js');
+// const logger = log4js.getLogger();
+// logger.level = 'debug';
+// logger.debug('Some debug messages');
+const bodyParser = require('body-parser');
+const mysql = require('mysql');
 
-const app = express()
-app.use(morgan('combined'))
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(morgan('combined'));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
-app.get('/status', (req, res) => {
-  res.send({
-    messsage: 'hello world'
-  })
-})
+// Connection config
+const mc = mysql.createConnection({
+  host: 'localhost',
+  port: 3306,
+  user: 'root',
+  password: 'root',
+  database: 'outline_db'
+});
 
-app.listen(process.env.PORT || 8080)
+// Connect to database
+mc.connect();
 
+// Default route
+app.get('/', function(req, res) {
+  return res.send({ error: true, message: 'hello' })
+});
 
-// // Dependencies
-// const http = require('http');
-// const express = require('express');
-// const socketIo = require('socket.io');
+// Retrieve nodes
+app.get('/nodes', function (req, res) {
+  mc.query('SELECT * FROM nodes', function(error, results, fields) {
+    if (error) throw error;
+    return res.send({ error: false, data: results, message: 'Nodes list' });
+  });
+});
 
-// const app = express();
+// Retrieve node with id 
+app.get('/node/:id', function(req, res) {
+  let id = req.params.id;
 
-// app.get('/', (req, res) => res.send("Hello World"));
+  if (!id) {
+    return res.status(400).send({ error: true, message: 'Please provide id' });
+  }
+  mc.query('SELECT * FROM nodes WHERE id = ?', id, function (error, results, fields) {
+    if (error) throw error;
+    return res.send({ error: false, data: results[0], message: 'Nodes list' });
+  });
+});
 
-// const server = http.Server(app);
-// server.listen('Server listening on port: ' + 3000);
+// Add a new node
+app.post('/node', function(req, res) {
 
-// // const io = socketIo(server);
+  mc.query('INSERT INTO nodes SET ?', { 
+    node_name: req.body.node_name,
+    node_range_start: req.body.node_range_start,
+    node_range_end: req.body.node_range_end,
+    node_children: req.body.node_children
+  }, function (error, results, fields) {
+    if (error) throw error;
+    return res.send({ error: false, data: results, message: 'New node has been created succesfully!' });
+  });
+});
 
-// // io.on('connection', (socket) => {
-// //   socket.emit('hello', {
-// //     greeting: 'Hello Paul'
-// //   });
-// // });
+// Update node
+app.put('/node/:id', function(req, res) {
+  let id = req.params.id;
+
+  if (!id) {
+    return res.status(400).send({ error: node_name, message: 'Please provide id'});
+  }
+  mc.query('UPDATE nodes SET node_name = ?, node_range_start = ?, node_range_end = ?, node_children = ? WHERE id = ?', [
+    req.body.node_name,
+    req.body.node_range_start,
+    req.body.node_range_end,
+    req.body.node_children,
+    id
+  ], function(error, results, fields) {
+    if (error) throw error;
+    return res.send({ error: false, data: results, message: 'Task has been updated succesfully' });
+  });
+});
+
+// Delete node
+app.delete('/node/:id', function(req, res) {
+  let id = req.params.id;
+
+  if(!id) {
+    return res.status(400).send({ error: true, message: 'Plesase provide id' });
+  }
+  mc.query('DELETE FROM nodes WHERE id = ?', [id], function(error, results, fields) {
+    if (error) throw error;
+    return res.send({ error: false, data: results, message: 'Node has been updated succesfully.' });
+  });
+});
+
+// Port set to 8080 for incoming http requests
+app.listen(8080, function() {
+  console.log('Listening on port 8080');
+});
