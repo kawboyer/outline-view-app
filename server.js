@@ -1,16 +1,14 @@
 // Dependencies
 const express = require('express');
-const app = express();
 const morgan = require('morgan');
-// const log4js = require('log4js');
-// const logger = log4js.getLogger();
-// logger.level = 'debug';
-// logger.debug('Some debug messages');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
+const path = require('path');
 
-app.use(bodyParser.json());
+const app = express();
+
 app.use(morgan('combined'));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -29,7 +27,7 @@ mc.connect();
 
 // Default route
 app.get('/', function(req, res) {
-  return res.send({ error: true, message: 'hello' })
+  res.sendFile(path.join(__dirname, './index.html'));
 });
 
 // Retrieve nodes
@@ -56,12 +54,12 @@ app.get('/node/:id', function(req, res) {
 // Add a new node
 app.post('/node', function(req, res) {
 
-  mc.query('INSERT INTO nodes SET ?', { 
-    node_name: req.body.node_name,
-    node_range_start: req.body.node_range_start,
-    node_range_end: req.body.node_range_end,
-    node_children: req.body.node_children
-  }, function (error, results, fields) {
+  mc.query('INSERT INTO nodes SET ?', [
+    req.body.node_name,
+    req.body.node_range_start,
+    req.body.node_range_end,
+    req.body.node_children
+  ], function (error, results, fields) {
     if (error) throw error;
     return res.send({ error: false, data: results, message: 'New node has been created succesfully!' });
   });

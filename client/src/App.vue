@@ -19,23 +19,15 @@ export default {
   },
   data() {
     return {
-      nodes: [
-        {name: 'Ryo', specialty: 'Vue Components', show: false},
-        {name: 'Crystal', specialty: 'HTML Wizardry', show: false},
-        {name: 'Hitoshi', specialty: 'Click Events', show: false},
-        {name: 'Tango', specialty: 'Conditionals', show: false},
-        {name: 'Kami', specialty: 'Webpack', show: false},
-        {name: 'Yoshi', specialty: 'Data Diggin', show: false},
-        {name: 'Yoshi', specialty: 'Data Diggin', show: false}
-      ],
       title: 'Outline View App'
     }
-  },
-  methods: {
-    updateTitle: function(updatedTitle) {
-      this.title = updatedTitle;
-    }
   }
+  // ,
+  // methods: {
+  //   updateTitle: function(updatedTitle) {
+  //     this.title = updatedTitle;
+  //   }
+  // }
 }
 </script>
 
