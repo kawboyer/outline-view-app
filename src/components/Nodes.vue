@@ -16,7 +16,7 @@ let requestUrl
 if (window.location.href.includes('localhost')) {
   requestUrl = 'http://localhost:8081'
 } else {
-  requestUrl = 'whereveryoudeploy.com'
+  requestUrl = 'https://outline-app.herokuapp.com'
 }
 
 export default {
