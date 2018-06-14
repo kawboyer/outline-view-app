@@ -101,6 +101,6 @@ app.delete('/node/:id', function(req, res) {
 });
 
 // Port set to 8081 for incoming http requests
-app.listen(8081, function() {
+app.listen(process.env.PORT || 8081, function() {
   console.log('Listening on port 8081');
 });
