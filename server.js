@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const path = require('path');
+const routes = require('./server/routes/routes');
 
 const app = express();
 
@@ -25,7 +26,7 @@ const mc = mysql.createConnection({
 // Connect to database
 mc.connect();
 
-// Default route
+// Default route to connect with Vue.js index.html
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, './index.html'));
 });

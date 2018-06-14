@@ -19,6 +19,7 @@
     "mysql": "^2.15.0",
     "sequelize": "^4.37.10",
     "socket.io": "^2.1.1",
+    "uuid": "^3.2.1",
     "vue": "^2.5.11"
   },
   "browserslist": [

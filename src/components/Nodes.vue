@@ -21,9 +21,8 @@ export default {
   },
   data() {
     return {
-
-      Nodes: {},
-      // nodes: [
+      info: null
+      // node: [
       //   {
       //     name: req.body.node_name, 
       //     start: req.body.node_range_start,
@@ -33,17 +32,19 @@ export default {
       //     show: false
       //   }
       // ]
-    },
-    mounted(); {
-      axios.get('http://localhost:8080/nodes')
-      .then((response) => {
-        console.log(response.data);
-        this.Node = response.data;
-      })
-      .catch((error) => {
-        console.log(error)
-      });
+      // },
     }
+  },
+  mounted() {
+    axios
+    .get('http://localhost:8080/nodes')
+    .then(response => {
+      console.log(response);
+      this.info = response;
+    })
+    .catch((error) => {
+      console.log(error)
+    });
   },
   methods: {
     deleteNode: function() {
