@@ -1,11 +1,10 @@
 <template>
   <footer>
-    <p> &copy {{ copyright }} {{ title }}</p>
+    <p> &copy; {{ copyright }} {{ title }}</p>
   </footer>
 </template>
 
 <script>
-import { bus } from '../main';
 export default {
   props: {
     title: {

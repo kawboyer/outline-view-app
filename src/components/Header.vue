@@ -1,31 +1,15 @@
 <template>
   <header>
-    <h1 v-on:click="changeTitle">{{ title }}</h1>
+    <h1>{{ title }}</h1>
   </header>
   
 </template>
 
 <script>
-import { bus } from '../main';
 export default {
-  props: {
-    title: {
-      type: String
-    }
-  },
   data() {
     return {
       title: 'Outline View App'
-    }
-  },
-  created() {
-    bus.$on('titleChanged', (data) => {
-      this.title = data;
-    })
-  },
-  methods: {
-    changeTitle: function() {
-      this.$emit('changeTitle', 'Tree View App')
     }
   }
 }

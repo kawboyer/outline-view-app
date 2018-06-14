@@ -1,6 +1,6 @@
 <template>
   <div>
-    <app-header v-bind:title="title" v-on:changeTitle="updateTitle($event)"></app-header>
+    <app-header></app-header>
     <app-nodes v-bind:nodes="nodes"></app-nodes>
     <app-footer v-bind:title="title"></app-footer>
   </div>
@@ -19,6 +19,7 @@ export default {
   },
   data() {
     return {
+      title: 'Outline View App',
       nodes: [
         {name: 'Ryo', specialty: 'Vue Components', show: false},
         {name: 'Crystal', specialty: 'HTML Wizardry', show: false},
@@ -27,13 +28,7 @@ export default {
         {name: 'Kami', specialty: 'Webpack', show: false},
         {name: 'Yoshi', specialty: 'Data Diggin', show: false},
         {name: 'Yoshi', specialty: 'Data Diggin', show: false}
-      ],
-      title: 'Outline View App'
-    }
-  },
-  methods: {
-    updateTitle: function(updatedTitle) {
-      this.title = updatedTitle;
+      ]
     }
   }
 }

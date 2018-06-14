@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   props: {
     nodes: {
@@ -20,7 +21,30 @@ export default {
   },
   data() {
     return {
+      info: null
+      // node: [
+      //   {
+      //     name: req.body.node_name, 
+      //     start: req.body.node_range_start,
+      //     end: req.body.node_range_end,
+      //     children: req.body.node_children,
+      //     created_at: req.body.created_at,
+      //     show: false
+      //   }
+      // ]
+      // },
     }
+  },
+  mounted() {
+    axios
+    .get('http://localhost:8080/nodes')
+    .then(response => {
+      console.log(response);
+      this.info = response;
+    })
+    .catch((error) => {
+      console.log(error)
+    });
   },
   methods: {
     deleteNode: function() {
@@ -52,5 +76,4 @@ li {
   border: 1px solid #222;
   margin: 10px;
 }
-
 </style>
