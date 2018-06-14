@@ -1,8 +1,4 @@
-DROP DATABASE IF EXISTS outline_db;
-
-CREATE DATABASE outline_db;
-
-USE outline_db;
+USE z4iu11rg6xdoiiec;
 
 CREATE TABLE nodes (
 id INT NOT NULL AUTO_INCREMENT,
