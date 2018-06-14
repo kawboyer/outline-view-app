@@ -12,6 +12,13 @@
 
 <script>
 import axios from 'axios';
+let requestUrl
+if (window.location.href.includes('localhost')) {
+  requestUrl = 'http://localhost:8080'
+} else {
+  requestUrl = 'whereveryoudeploy.com'
+}
+
 export default {
   props: {
     nodes: {
@@ -37,10 +44,10 @@ export default {
   },
   mounted() {
     axios
-    .get('http://localhost:8080/nodes')
+    .get(`${requestUrl}/nodes`)
     .then(response => {
-      console.log(response);
-      this.info = response;
+      console.log(response.data);
+      this.info = response.data;
     })
     .catch((error) => {
       console.log(error)

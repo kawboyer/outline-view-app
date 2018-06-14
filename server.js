@@ -5,9 +5,11 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const path = require('path');
 const routes = require('./server/routes/routes');
+const cors = require('cors');
 
 const app = express();
 
+app.use(cors());
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -16,11 +18,11 @@ app.use(bodyParser.urlencoded({
 
 // Connection config
 const mc = mysql.createConnection({
-  host: 'localhost',
-  port: 3306,
-  user: 'root',
-  password: 'root',
-  database: 'outline_db'
+  host: process.env.DBHOST,
+  port: process.env.DBPORT,
+  user: process.env.DBUSER,
+  password: process.env.DBPASS,
+  database: process.env.DB
 });
 
 // Connect to database
@@ -98,7 +100,7 @@ app.delete('/node/:id', function(req, res) {
   });
 });
 
-// Port set to 8080 for incoming http requests
-app.listen(8080, function() {
-  console.log('Listening on port 8080');
+// Port set to 8081 for incoming http requests
+app.listen(8081, function() {
+  console.log('Listening on port 8081');
 });
