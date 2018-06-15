@@ -57,14 +57,15 @@ app.get('/node/:id', function(req, res) {
 
 // Add a new node
 app.post('/node', function(req, res) {
-
   mc.query('INSERT INTO nodes SET ?', [
     req.body.node_name,
     req.body.node_range_start,
     req.body.node_range_end,
     req.body.node_children
   ], function (error, results, fields) {
-    if (error) throw error;
+    if (error) {
+      return res.status(401).send('Incorrect insert data');
+    };
     return res.send({ error: false, data: results, message: 'New node has been created succesfully!' });
   });
 });
