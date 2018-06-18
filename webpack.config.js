@@ -4,9 +4,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
-  entry: './src/main.js',
+  entry: './client/src/main.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, './server/dist'),
     publicPath: '/dist/',
     filename: 'build.js'
   },
@@ -68,7 +68,7 @@ if (process.env.NODE_ENV === 'production') {
       }
     }),
     new CleanWebpackPlugin('dist'),
-    new CopyWebpackPlugin([{from: './index.html', to: 'index.html'}]),
+    new CopyWebpackPlugin([{from: './client/public/index.html', to: 'index.html'}]),
     // new webpack.optimize.UglifyJsPlugin({
     //   sourceMap: true,
     //   compress: {
