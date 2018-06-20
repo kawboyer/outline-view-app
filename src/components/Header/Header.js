@@ -1,10 +1,10 @@
-import React from 'react';
-import '../../styles/Header.css';
+import React from "react";
+import "../../styles/Header.css";
 
 const Header = () => (
   <header className = "jumbotron">
-    <h1>Outline View app</h1>
-    <h3>More to come...</h3>
+    <h1>Flag Click Game</h1>
+    <h3>Click each flag once - and once only...</h3>
   </header>
 );
 
