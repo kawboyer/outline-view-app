@@ -1,0 +1,86 @@
+[
+  {
+    "id": 0,
+    "country": "Austria",
+    "capital": "Vienna",
+    "image": "assets/images/austria.jpg",
+    "isClicked": false
+  },
+  {
+    "id": 1,
+    "country": "Belgium",
+    "capital": "Brussels",
+    "image": "assets/images/belgium.jpg",
+    "isClicked": false
+  },
+  {
+    "id": 2,
+    "country": "Czech Republic",
+    "capital": "Prague",
+    "image": "assets/images/czech.jpg",
+    "isClicked": false
+  },
+  {
+    "id": 3,
+    "country": "Denmark",
+    "capital": "Copenhagen",
+    "image": "assets/images/denmark.jpg",
+    "isClicked": false
+  },
+  {
+    "id": 4,
+    "country": "Estonia",
+    "capital": "Tallinn",
+    "image": "assets/images/estonia.jpg",
+    "isClicked": false
+  },
+  {
+    "id": 5,
+    "country": "Finland",
+    "capital": "Helsinki",
+    "image": "assets/images/finland.jpg",
+    "isClicked": false
+  },
+  {
+    "id": 6,
+    "country": "France",
+    "capital": "Paris",
+    "image": "assets/images/france.jpg",
+    "isClicked": false
+  },
+  {
+    "id": 7,
+    "country": "Greece",
+    "capital": "Athens",
+    "image": "assets/images/greece.jpg",
+    "isClicked": false
+  },
+  {
+    "id": 8,
+    "country": "Iceland",
+    "capital": "Reykjavik",
+    "image": "assets/images/iceland.jpg",
+    "isClicked": false
+  },
+  {
+    "id": 9,
+    "country": "Ireland",
+    "capital": "Dublin",
+    "image": "assets/images/ireland.jpg",
+    "isClicked": false
+  },
+  {
+    "id": 10,
+    "country": "Italy",
+    "capital": "Rome",
+    "image": "assets/images/italy.jpg",
+    "isClicked": false
+  },
+  {
+    "id": 11,
+    "country": "Lithuania",
+    "capital": "Vilnius",
+    "image": "assets/images/lithuania.jpg",
+    "isClicked": false
+  }
+]

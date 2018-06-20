@@ -1,108 +1,39 @@
 // Dependencies
-const express = require('express');
-const morgan = require('morgan');
-const bodyParser = require('body-parser');
-const mysql = require('mysql');
-const path = require('path');
-const routes = require('./server/routes/routes');
-const cors = require('cors');
+var express = require("express");
+var expressHandlebars = require("express-handlebars");
+var mongoose = require("mongoose");
+var logger = require("morgan");
+var bodyParser = require("body-parser");
+var scraper = require("./controller/scraper.js");
 
-const app = express();
+// Request and cheerio make the scraping possible.
+var request = require("request");
+var cheerio = require("cheerio");
 
-app.use(cors());
-app.use(express.static('dist'));
-app.use(morgan('combined'));
+// Axios is a promised-based http library that works on the client end on the server.
+var axios = require("axios");
+
+// Heroku port through process.env.PORT or localhost:3000
+var PORT = process.env.PORT || 3000;
+
+// Initialize Express
+var app = express();
+
+// Use morgan logger for logging requests
+app.use(logger("dev"));
+
+// Use body-parser for handling form submissions
+app.use(bodyParser.urlencoded({ extended: true }));
+// Parse application/json
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
 
-// Connection config
-const mc = mysql.createConnection({
-  host: process.env.DBHOST,
-  port: process.env.DBPORT,
-  user: process.env.DBUSER,
-  password: process.env.DBPASS,
-  database: process.env.DB
-});
+// Use express.static to serve the public folder as a static directory
+app.use(express.static("public"));
 
-// Connect to database
-mc.connect();
+// Pass the scraper.js file
+app.use("/", scraper);
 
-// Default route to connect with Vue.js index.html
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, './index.html'));
-});
-
-// Retrieve nodes
-app.get('/nodes', function (req, res) {
-  mc.query('SELECT * FROM nodes', function(error, results, fields) {
-    if (error) throw error;
-    return res.send({ error: false, data: results, message: 'Nodes list' });
-  });
-});
-
-// Retrieve node with id 
-app.get('/node/:id', function(req, res) {
-  let id = req.params.id;
-
-  if (!id) {
-    return res.status(400).send({ error: true, message: 'Please provide id' });
-  }
-  mc.query('SELECT * FROM nodes WHERE id = ?', id, function (error, results, fields) {
-    if (error) throw error;
-    return res.send({ error: false, data: results[0], message: 'Nodes list' });
-  });
-});
-
-// Add a new node
-app.post('/node', function(req, res) {
-  mc.query('INSERT INTO nodes SET ?', [
-    req.body.node_name,
-    req.body.node_range_start,
-    req.body.node_range_end,
-    req.body.node_children
-  ], function (error, results, fields) {
-    if (error) {
-      return res.status(401).send('Incorrect insert data');
-    };
-    return res.send({ error: false, data: results, message: 'New node has been created succesfully!' });
-  });
-});
-
-// Update node
-app.put('/node/:id', function(req, res) {
-  let id = req.params.id;
-
-  if (!id) {
-    return res.status(400).send({ error: node_name, message: 'Please provide id'});
-  }
-  mc.query('UPDATE nodes SET node_name = ?, node_range_start = ?, node_range_end = ?, node_children = ? WHERE id = ?', [
-    req.body.node_name,
-    req.body.node_range_start,
-    req.body.node_range_end,
-    req.body.node_children,
-    id
-  ], function(error, results, fields) {
-    if (error) throw error;
-    return res.send({ error: false, data: results, message: 'Task has been updated succesfully' });
-  });
-});
-
-// Delete node
-app.delete('/node/:id', function(req, res) {
-  let id = req.params.id;
-
-  if(!id) {
-    return res.status(400).send({ error: true, message: 'Plesase provide id' });
-  }
-  mc.query('DELETE FROM nodes WHERE id = ?', [id], function(error, results, fields) {
-    if (error) throw error;
-    return res.send({ error: false, data: results, message: 'Node has been updated succesfully.' });
-  });
-});
-
-// Port set to 8081 for incoming http requests
-app.listen(process.env.PORT || 8081, function() {
-  console.log('Listening on port 8081');
+// Start the server
+app.listen(PORT, function () {
+  console.log("App listening on port " + PORT + "!");
 });

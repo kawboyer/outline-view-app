@@ -1,46 +1,17 @@
 {
-  "name": "outline-view-app",
-  "description": "A full-stack outline view app built with the Vue.js frontend framework",
-  "version": "1.0.0",
-  "author": "Klara Boyer",
-  "license": "MIT",
+  "name": "my-app",
+  "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "start": "node server",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
-  },
   "dependencies": {
-    "axios": "^0.18.0",
-    "body-parser": "^1.18.3",
-    "cors": "^2.8.4",
-    "express": "^4.16.3",
-    "log4js": "^2.8.0",
-    "morgan": "^1.9.0",
-    "mysql": "^2.15.0",
-    "sequelize": "^4.37.10",
-    "socket.io": "^2.1.1",
-    "uuid": "^3.2.1",
-    "vue": "^2.5.11"
+    "heroku-cli": "^7.0.9",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-scripts": "1.1.4"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ],
-  "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-stage-3": "^6.24.1",
-    "clean-webpack-plugin": "^0.1.19",
-    "copy-webpack-plugin": "^4.5.1",
-    "cross-env": "^5.0.5",
-    "css-loader": "^0.28.7",
-    "file-loader": "^1.1.4",
-    "vue-loader": "^13.0.5",
-    "vue-template-compiler": "^2.4.4",
-    "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.9.1"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
