@@ -1,30 +1,41 @@
 // Dependencies
 const express = require('express');
+const http = require('http');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const path = require('path');
-const routes = require('./server/routes/routes');
 const cors = require('cors');
+const socketIO = require('socket.io');
 
 const app = express();
+const PORT = process.env.PORT || 8081;
 
-app.use(cors());
-app.use(express.static('public'));
-app.use(morgan('combined'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+const server = http.createServer(app);
+const io = socketIO(server);
 
-var PORT = process.env.PORT || 8081;
+io.on('connection', socket => {
+  console.log('User connected')
 
-// Default route
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, './index.html'));
+  socket.on('disconnct', () => {
+    console.log('user disconnected')
+  });
 });
 
 // Start the server
-app.listen(process.env.PORT || 8081, function() {
-  console.log('Listening on port 8081');
+server.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
 });
+
+// app.use(cors());
+// app.use(express.static('public'));
+// app.use(morgan('combined'));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({
+//   extended: true
+// }));
+
+// // Default route
+// app.get('/', function(req, res) {
+//   res.sendFile(path.join(__dirname, './index.html'));
+// });
