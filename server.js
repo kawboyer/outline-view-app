@@ -17,7 +17,12 @@ const io = socketIO(server);
 io.on('connection', socket => {
   console.log('User connected')
 
-  socket.on('disconnct', () => {
+  socket.on('change color', (color) => {
+    console.log('Color Changed to: ', color)
+    io.sockets.emit('change color', color)
+  })
+
+  socket.on('disconnect', () => {
     console.log('user disconnected')
   });
 });
@@ -35,7 +40,7 @@ server.listen(PORT, () => {
 //   extended: true
 // }));
 
-// // Default route
-// app.get('/', function(req, res) {
-//   res.sendFile(path.join(__dirname, './index.html'));
-// });
+// Default route
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, 'client/public/index.html'));
+});
